@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 export const getTokenData = async (request) => {
   try {
     const token = request.cookies.get("token")?.value || "";
-    console.log("yout token", token);
     const decodedData = jwt.verify(token, process.env.JSON_SECRET);
     return decodedData.id;
   } catch (error) {

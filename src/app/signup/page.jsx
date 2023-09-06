@@ -25,7 +25,6 @@ const SignUpPage = () => {
   const onSignUp = async () => {
     try {
       const res = await axios.post("/api/users/signup", user);
-      console.log(res.data);
       router.push("/login");
     } catch (error) {
       console.log(error.message);
