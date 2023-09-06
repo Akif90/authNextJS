@@ -1,16 +1,30 @@
 "use client";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
 import axios from "axios";
 
 const LoginPage = () => {
+  const router = useRouter();
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
+  const [isActive, setIsActive] = useState(false);
+  useEffect(() => {
+    if (user.email.length > 0 && user.password.length > 0) setIsActive(true);
+    else setIsActive(false);
+  }, [user]);
 
-  const onLogin = async () => {};
+  const onLogin = async () => {
+    try {
+      const res = await axios.post("/api/users/login", user);
+      console.log(res);
+      router.push("/profile");
+    } catch (error) {
+      console.log("Error", error?.response?.data || "");
+    }
+  };
   return (
     <div className="flex justify-center min-h-screen py-2 items-center flex-col">
       <h1>Login</h1>
@@ -19,7 +33,7 @@ const LoginPage = () => {
       <label htmlFor="email">Email</label>
       <input
         type="email"
-        className="p-3 rounded-lg"
+        className="p-3 text-black rounded-lg"
         onChange={(e) => setUser({...user, email: e.target.value})}
         placeholder="email"
         id="email"
@@ -28,7 +42,7 @@ const LoginPage = () => {
       <label htmlFor="password">Password</label>
       <input
         type="password"
-        className="p-3 rounded-lg"
+        className="p-3 text-black rounded-lg"
         onChange={(e) => setUser({...user, password: e.target.value})}
         id="password"
         placeholder="password"
@@ -39,9 +53,9 @@ const LoginPage = () => {
         onClick={onLogin}
         className="btn-info p-2 rounded-lg my-4 border border-white-200 "
       >
-        Login
+        {isActive ? "Login" : "Can not Login"}
       </button>
-      <Link href={"/signup"}>Visit SignUp</Link>
+      <Link href={"/signup"}>Sign Up</Link>
     </div>
   );
 };
