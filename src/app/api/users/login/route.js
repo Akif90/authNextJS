@@ -9,13 +9,12 @@ connect();
 export async function POST(request) {
   try {
     const {email, password} = await request.json();
-
     const user = await User.findOne({email});
     if (!user) {
       throw "User not found";
     }
 
-    const validPassword = bcryptjs.compare(password, user.password);
+    const validPassword = await bcryptjs.compare(password, user.password);
     if (!validPassword) {
       throw "Wrong Credentials";
     }
@@ -32,6 +31,7 @@ export async function POST(request) {
     });
     const response = NextResponse.json({
       message: "Login Successful",
+      username: user.username,
       success: true,
     });
     response.cookies.set("token", token, {httpOnly: true});

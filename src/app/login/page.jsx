@@ -19,8 +19,8 @@ const LoginPage = () => {
   const onLogin = async () => {
     try {
       const res = await axios.post("/api/users/login", user);
-      console.log(res);
-      router.push("/profile");
+      const {username} = res.data;
+      router.push(`/profile/${username}`);
     } catch (error) {
       console.log("Error", error?.response?.data || "");
     }
