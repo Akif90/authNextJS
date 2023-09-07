@@ -55,8 +55,18 @@ const LoginPage = () => {
       >
         {isActive ? "Login" : "Can not Login"}
       </button>
-      <Link href={"/signup"}>Sign Up</Link>
-      <Link href={"/forgetpassword"}>Forgot Password?</Link>
+      <Link
+        className="p-2 border rounded-md mb-2 border-white-400"
+        href={"/signup"}
+      >
+        Sign Up
+      </Link>
+      <Link
+        className="p-2 border rounded-md mb-2 border-white-400"
+        href={"/forgetpassword"}
+      >
+        Forgot Password?
+      </Link>
     </div>
   );
 };

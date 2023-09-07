@@ -1,5 +1,6 @@
 "use client";
 import axios from "axios";
+import Link from "next/link";
 import React, {useState} from "react";
 
 const ForgetPassword = () => {
@@ -25,11 +26,17 @@ const ForgetPassword = () => {
         value={email}
       />
       <button
-        className="btn-info p-2 rounded-lg my-4 border border-white-200 "
+        className="btn-info p-2 rounded-lg my-4 border border-white-200"
         onClick={onSubmit}
       >
         Submit
       </button>
+      <Link
+        className=" p-2 border rounded-md mb-2 border-white-400"
+        href={"/login"}
+      >
+        Login
+      </Link>
     </div>
   );
 };
